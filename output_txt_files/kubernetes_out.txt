@@ -1,1 +1,6 @@
-<paste log output from Kubernetes-mediated prediction, here>
+pod/boston-housing created
+error: timed out waiting for the condition on pods/boston-housing
+NAME             READY   STATUS    RESTARTS   AGE
+boston-housing   1/1     Running   0          30s
+Forwarding from 127.0.0.1:8000 -> 80
+Forwarding from [::1]:8000 -> 80
