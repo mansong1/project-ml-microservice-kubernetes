@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
 # Build image and add a descriptive tag
-docker build -f Dockerfile -t mansong/boston-housing:latest -t mansong/boston_housing:v1.0 .
+docker image build -t boston-housing:latest .
 
 # List docker images
-docker ps -a
+docker image ls
 
 # Run flask app
-docker run -d -p 5000:5000 mansong/boston_housing
+docker run -d -p 5000:80 boston-housing:latest
+
+# List docker process
+docker ps -a
