@@ -1,42 +1,50 @@
-<include a CircleCI status badge, here>
+[![CircleCI](https://circleci.com/gh/mansong1/project-ml-microservice-kubernetes/tree/master.svg?style=svg)](https://circleci.com/gh/josephmfaulkner/udacity-devops-project4/tree/master)
+# Cloud DevOps Engineer Nanodegree - Operationalize a Machine Learning Microservice API
 
-## Project Overview
+## Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
-
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
-
-### Project Tasks
-
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
-
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
-
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
+A containerised flask application that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling. It utilises a pre-trained `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing).
 
 ---
 
-## Setup the Environment
+### Running the application
 
-* Create a virtualenv and activate it
-* Run `make install` to install the necessary dependencies
+1. Standalone:
+```
+#Setup a python virtual environment and activate it
+make setup
 
-### Running `app.py`
+#Install the necessary dependencies
+make install
 
-1. Standalone:  `python app.py`
+#Run the main application
+python app.py
+```
 2. Run in Docker:  `./run_docker.sh`
 3. Run in Kubernetes:  `./run_kubernetes.sh`
 
-### Kubernetes Steps
+The application will be running on http://localhost:8000
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+### Predict housing prices
+
+While the application is running, run `./make_predicion.sh` to make api calls to the app
+
+### Upload Docker image to DockerHub
+After running `./run_docker.sh`, execute script`./upload_docker.sh ${USERNAME}` to upload image to DockerHub where ${USERNAME} is your dockerhub id. e.g. `./upload_docker.sh mansong`
+
+---
+
+## Project Files
+
+* __app.py:__ The Flask application 
+* __requirements.txt:__ Prerequisites of Python packages for Flask app
+* __model_data/boston_housing_prediction.joblib:__ Pretrained sklearn model used by the flask app
+* __Dockerfile:__ Instructions of how to build our application container
+* __Makefile:__ Commands to setup, install and lint the applicaiton
+* __run_docker.sh:__ Builds and runs the docker container
+* __run_kubernetes.sh:__ Runs Flask app as a pod in kubernetes
+* __make_prediction.sh:__ Sends a POST api call to running Flask app to make a prediction
+* __upload_docker.sh:__ Tags and uploads the Docker image to DockerHub
+* __output_txt_files/docker_out.txt:__ Console output from running run_docker.sh and make_prediction.sh
+* __output_txt_files/kubernetes_out.txt__ Console output from running run_kubernetes.sh and make_prediction.sh
+* __.circleci/config.yml:__ Defines the circleCI deployment
